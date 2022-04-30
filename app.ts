@@ -4,6 +4,7 @@ import authRouter from "./routes/auth.ts";
 import {engines, staticMiddleware} from "./deps.ts";
 import {xapiDefaultFileManager} from "./deps.ts";
 import appSession from "./session.ts";
+import authManager from "./auth/config.ts";
 
 const app = new Application();
 app.use(async (ctx, next) => {
@@ -13,10 +14,9 @@ app.use(async (ctx, next) => {
   const end = Date.now();
   console.log("end time req ", end, "  difference ", end - now);
 });
+
 /// add session
-
 app.use(appSession.inject());
-
 app.setViewEngine(engines.etaEngine.configure({cache: false}));
 app.use(
   staticMiddleware({
@@ -24,6 +24,7 @@ app.use(
     urlMapper: (e) => e.replace("/assets", ""),
   })
 );
+app.use(authManager.authMiddleware());
 
 app.use(
   "/filemanager",
@@ -37,7 +38,7 @@ app.use(
 );
 
 app.use("/auth", authRouter);
-app.use("/notes", notesRouter);
+app.use("/notes",[authManager.ensureAuthenticated(), notesRouter]);
 app.use(async (ctx) => {
   console.log("not found");
   await ctx.res.notFound();
