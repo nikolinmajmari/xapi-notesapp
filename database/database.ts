@@ -84,7 +84,7 @@ export default class Database {
     type: typeof Model,
     condition: ((item: T) => boolean) | undefined = (e) => true
   ): Promise<T[]> {
-    const text = await Deno.readTextFileSync(this.path + "/" + type.table);
+    const text = await Deno.readTextFile(this.path + "/" + type.table);
     const models = text
       .split("\n")
       .filter((e) => e != "")
