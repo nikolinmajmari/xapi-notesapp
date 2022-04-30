@@ -75,9 +75,13 @@ export default class Database {
         return line;
       })
       .join("\n");
-    await Deno.writeTextFile(this.path + "/" + type.table, text, {
-      create: true,
-    });
+      try{
+        await Deno.writeTextFile(this.path + "/" + type.table, text, {
+          create: true,
+        });
+      }catch(e){
+        console.log("result wre not saved because of");
+      }
   }
 
   async load<T extends Model<T>>(
