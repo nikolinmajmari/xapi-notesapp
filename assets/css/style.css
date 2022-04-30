@@ -1,0 +1,10 @@
+body {
+    background-color: rgb(242, 218, 218);
+}
+
+.form-container {
+    width: 70%;
+    margin: auto;
+    padding: auto;
+    display: inline-block;
+}
