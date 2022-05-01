@@ -12,9 +12,9 @@ The app is a note app that uses simple session authentication. Users and notes a
 
 ### The packages used on the app are 
 
-- [xapi-app]()
-- [xapi-session]()
-- [xapi-auth]()
+- [xapi-app](https://github.com/nikolinmajmari/xapi/tree/main/xapi/app)
+- [xapi-session](https://github.com/nikolinmajmari/xapi/tree/main/xapi/session)
+- [xapi-auth](https://github.com/nikolinmajmari/xapi/tree/main/xapi/auth)
 
 The upper packages also use dependencies from other packages. Check the other packages for more details. 
 
