@@ -7,24 +7,35 @@ configure({views: Deno.cwd() + "/views"});
 import appSession from "../session.ts";
 
 const router = new Router();
-
 /**
  * return all notes
  */
 router.get("/", async (ctx, next) => {
   const notes = await db.load(Note);
-  const session = appSession.of(ctx);
-  try {
-    const cnt = parseInt((await session?.get("cnt")) ?? "0");
-    await session?.set("cnt", (cnt + 1).toString());
-    console.log(cnt);
-    await session?.flush();
-  } catch (e) {
-    console.log(e);
-  }
   await ctx.res.render("./notes/index.html.eta", {
     notes: notes,
   });
+});
+
+router.get("/session",async (ctx,next)=>{
+  const session = appSession.of(ctx);
+  if(session!=undefined){
+    /// retrive data from session
+    const counter:string = await session.get("counter")??"0";
+    console.log(counter);
+    const newCounter = parseInt(counter)+1;
+    if(newCounter>100){
+      /// clear data from session 
+      await session.clear("counter");
+    }else{
+      /// save update data into session 
+      await session.set("counter",newCounter.toString());
+    }
+    /// flush session into file
+    await session.flush();
+    await ctx.res.sent(newCounter.toString());
+  }
+  await ctx.res.sent("no session");
 });
 
 router.get("/new", async (ctx, next) => {

@@ -36,7 +36,6 @@ app.use(
     })
     .init()
 );
-
 app.use("/auth", authRouter);
 app.use("/notes",[authManager.ensureAuthenticated(), notesRouter]);
 app.use(async (ctx) => {

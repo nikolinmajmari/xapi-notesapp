@@ -9,7 +9,8 @@
 
 <body class="p-1" style="margin-top: 90px">
     <main class="container">
-        <div class="d-flex flex-row justify-content-end">
+        <div class="d-flex flex-row justify-content-between">
+            <a class="btn btn-secondary mb-4" href="/auth/logout">Log Out </a>
             <a class="btn btn-success mb-4" href="/notes/new">New</a>
         </div>
         <% it.notes.forEach(function(note){ %>
