@@ -16,6 +16,7 @@ app.use(async (ctx, next) => {
 });
 
 /// add session
+
 app.use(appSession.inject());
 app.setViewEngine(engines.etaEngine.configure({cache: false}));
 app.use(

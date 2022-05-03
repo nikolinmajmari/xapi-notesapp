@@ -71,7 +71,7 @@ router.post("/new", async (ctx, next) => {
     await db.createModel(Note, note);
     await ctx.res.redirect("/notes");
   } catch (e) {
-    await ctx.res.statusBadRequest().sent();
+    await ctx.res.badRequest();
   }
 });
 
@@ -99,7 +99,7 @@ router.post("/new_other", async (ctx, next) => {
     await db.createModel(Note, note);
     await ctx.res.redirect("/notes");
   } catch (e) {
-    await ctx.res.statusBadRequest().sent();
+    await ctx.res.badRequest();
   }
 });
 
@@ -154,7 +154,7 @@ router.post("/:id(\\d+)", async (ctx, next) => {
     await db.updateModel(Note, note);
     await ctx.res.redirect("/notes/" + note.id);
   } catch (e) {
-    await ctx.res.statusBadRequest().sent();
+    await ctx.res.badRequest();
   }
 });
 
